@@ -19,7 +19,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('SimpleMvc\Router\RouterInterface', $this->router);
     }
 
-    public function testMatchesValidRequest()
+    public function testMatchesRequest()
     {
         $route   = new Literal('/');
         $request = new Request('/');

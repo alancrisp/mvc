@@ -18,16 +18,10 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('SimpleMvc\Router\Route\RouteInterface', $this->route);
     }
 
-    public function testMatchesValidRequest()
+    public function testMatchesRequest()
     {
         $request = new Request('/contact');
         $this->assertTrue($this->route->match($request));
-    }
-
-    public function testDoesNotMatchInvalidRequest()
-    {
-        $request = new Request('/');
-        $this->assertFalse($this->route->match($request));
     }
 
     public function testAssembles()
