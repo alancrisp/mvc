@@ -10,7 +10,7 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->route = new Literal('/contact');
+        $this->route = new Literal('/contact', 'contact');
     }
 
     public function testImplementsRoute()
@@ -27,5 +27,10 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
     public function testAssembles()
     {
         $this->assertEquals('/contact', $this->route->assemble());
+    }
+
+    public function testProvidesControllerName()
+    {
+        $this->assertEquals('contact', $this->route->getControllerName());
     }
 }

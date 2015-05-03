@@ -21,7 +21,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testMatchesRequest()
     {
-        $route   = new Literal('/');
+        $route   = new Literal('/', 'home');
         $request = new Request('/');
         $this->router->addRoute('home', $route);
         $this->assertSame($route, $this->router->match($request));
@@ -35,7 +35,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testAssembles()
     {
-        $route = new Literal('/');
+        $route = new Literal('/', 'home');
         $this->router->addRoute('home', $route);
         $this->assertEquals('/', $this->router->assemble('home'));
     }
