@@ -50,14 +50,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->application->run($request);
     }
 
-    public function testThrowsExceptionWhenControllerIsNotCallable()
-    {
-        $this->givenRouterMatchesRoute();
-        $this->givenRouteProvidesControllerName('not-callable');
-        $this->setExpectedException('Exception', 'Controller \'not-callable\' is not callable');
-        $request = new Request('/');
-        $this->application->run($request);
-    }
     public function testThrowsExceptionWhenControllerDoesNotProvideResponse()
     {
         $this->givenRouterMatchesRoute();
