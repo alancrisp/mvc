@@ -1,6 +1,7 @@
 <?php
 namespace SimpleMvc;
 
+//use SimpleMvc\ControllerProviderInterface;
 use SimpleMvc\Http\RequestInterface;
 use SimpleMvc\Http\ResponseInterface;
 use SimpleMvc\Router\RouterInterface;
@@ -10,7 +11,7 @@ class Application
     private $router;
     private $controllers;
 
-    public function __construct(RouterInterface $router, array $controllers)
+    public function __construct(RouterInterface $router, ControllerProviderInterface $controllers)
     {
         $this->router = $router;
         $this->controllers = $controllers;
@@ -24,14 +25,14 @@ class Application
         }
 
         $controllerName = $matchedRoute->getControllerName();
-        if (!isset($this->controllers[$controllerName])) {
+        if (!$this->controllers->hasController($controllerName)) {
             throw new \Exception(sprintf(
                 'Route matched to unknown controller \'%s\'',
                 $controllerName
             ));
         }
 
-        $controller = $this->controllers[$controllerName];
+        $controller = $this->controllers->getController($controllerName);
         if (!is_callable($controller)) {
             throw new \Exception(sprintf(
                 'Controller \'%s\' is not callable',

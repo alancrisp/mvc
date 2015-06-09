@@ -2,6 +2,7 @@
 namespace SimpleMvcTest;
 
 use SimpleMvc\Application;
+use SimpleMvc\ControllerProvider;
 use SimpleMvc\Http\Request;
 use SimpleMvc\Http\Response;
 use SimpleMvc\Router\Route\Literal;
@@ -17,11 +18,19 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $this->router = $this->getMock('SimpleMvc\Router\RouterInterface');
         $this->route = $this->getMock('SimpleMvc\Router\Route\RouteInterface');
-        $this->application = new Application($this->router, [
-            'hello' => function () { return new Response(200, 'Hello!'); },
-            'no-response' => function () {},
-            'not-callable' => 'not-callable',
-        ]);
+        $this->controllers = $this->createControllerProvider();
+        $this->application = new Application($this->router, $this->controllers);
+    }
+
+    private function createControllerProvider()
+    {
+        $controllers = new ControllerProvider();
+        $controllers->addController('hello', function () {
+            return new Response(200, 'Hello!');
+        });
+        $controllers->addController('no-response', function () {});
+        $controllers->addController('not-callable', 'not-callable');
+        return $controllers;
     }
 
     public function testThrowsExceptionOnNoRouteMatch()
