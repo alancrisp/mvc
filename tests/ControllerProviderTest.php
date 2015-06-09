@@ -17,6 +17,26 @@ class ControllerProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('SimpleMvc\ControllerProviderInterface', $this->provider);
     }
 
+    /**
+     * @dataProvider provideInvalidController
+     */
+    public function testThrowsExceptionWhenSettingInvalidController($controller)
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'Controller is not callable or an instance of SimpleMvc\ControllerInterface'
+        );
+        $this->provider->addController('test', $controller);
+    }
+
+    public function provideInvalidController()
+    {
+        return [
+            ['undefinedFunction'],
+            [new \stdClass()],
+        ];
+    }
+
     public function testSetsController()
     {
         $controller = $this->getMock('SimpleMvc\ControllerInterface');

@@ -29,7 +29,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             return new Response(200, 'Hello!');
         });
         $controllers->addController('no-response', function () {});
-        $controllers->addController('not-callable', 'not-callable');
         return $controllers;
     }
 

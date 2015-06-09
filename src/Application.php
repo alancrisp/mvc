@@ -1,7 +1,6 @@
 <?php
 namespace SimpleMvc;
 
-//use SimpleMvc\ControllerProviderInterface;
 use SimpleMvc\Http\RequestInterface;
 use SimpleMvc\Http\ResponseInterface;
 use SimpleMvc\Router\RouterInterface;

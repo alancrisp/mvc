@@ -7,6 +7,14 @@ class ControllerProvider implements ControllerProviderInterface
 
     public function addController($name, $controller)
     {
+        if (!$controller instanceof ControllerInterface &&
+            !is_callable($controller)
+        ) {
+            throw new \InvalidArgumentException(
+                'Controller is not callable or an instance of SimpleMvc\ControllerInterface'
+            );
+        }
+
         $this->controllers[$name] = $controller;
     }
 
