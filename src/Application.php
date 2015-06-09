@@ -7,10 +7,6 @@ use SimpleMvc\Router\RouterInterface;
 
 class Application
 {
-    const EXCEPTION_NO_ROUTE_MATCH = 5001;
-    const EXCEPTION_UNKNOWN_CONTROLLER = 5002;
-    const EXCEPTION_NO_RESPONSE = 5003;
-
     private $router;
     private $controllers;
 
@@ -24,7 +20,7 @@ class Application
     {
         $matchedRoute = $this->router->match($request);
         if (!$matchedRoute) {
-            throw new \Exception('Unable to match route', self::EXCEPTION_NO_ROUTE_MATCH);
+            throw new \Exception('Unable to match route');
         }
 
         $controllerName = $matchedRoute->getControllerName();
@@ -32,7 +28,7 @@ class Application
             throw new \Exception(sprintf(
                 'Route matched to unknown controller \'%s\'',
                 $controllerName
-            ), self::EXCEPTION_UNKNOWN_CONTROLLER);
+            ));
         }
 
         $controller = $this->controllers[$controllerName];
@@ -41,7 +37,7 @@ class Application
             throw new \Exception(sprintf(
                 'Controller \'%s\' did not provide a response',
                 $controllerName
-            ), self::EXCEPTION_NO_RESPONSE);
+            ));
         }
 
         return $response;

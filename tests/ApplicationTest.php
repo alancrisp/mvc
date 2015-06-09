@@ -27,7 +27,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $this->router->method('match')->willReturn(false);
         $request = new Request('/blog');
-        $this->setExpectedException('Exception', '', Application::EXCEPTION_NO_ROUTE_MATCH);
+        $this->setExpectedException('Exception', 'Unable to match route');
         $this->application->dispatch($request);
     }
 
@@ -36,7 +36,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->givenRouterMatchesRoute();
         $this->givenRouteProvidesControllerName('invalidController');
         $request = new Request('/');
-        $this->setExpectedException('Exception', '', Application::EXCEPTION_UNKNOWN_CONTROLLER);
+        $this->setExpectedException('Exception', 'Route matched to unknown controller \'invalidController\'');
         $this->application->dispatch($request);
     }
 
@@ -44,7 +44,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $this->givenRouterMatchesRoute();
         $this->givenRouteProvidesControllerName('no-response');
-        $this->setExpectedException('Exception', '', Application::EXCEPTION_NO_RESPONSE);
+        $this->setExpectedException('Exception', 'Controller \'no-response\' did not provide a response');
         $request = new Request('/');
         $this->application->dispatch($request);
     }

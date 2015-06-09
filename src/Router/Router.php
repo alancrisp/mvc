@@ -28,7 +28,7 @@ class Router implements RouterInterface
             throw new \Exception(sprintf(
                 'Unknown route with name \'%s\'',
                 $name
-            ), self::EXCEPTION_UNKNOWN_ROUTE);
+            ));
         }
 
         return $this->routes[$name]->assemble($params);

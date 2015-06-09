@@ -29,7 +29,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowsExceptionWhenAssemblingUnknownRoute()
     {
-        $this->setExpectedException('Exception', '', Router::EXCEPTION_UNKNOWN_ROUTE);
+        $this->setExpectedException('Exception', 'Unknown route with name \'blog\'');
         $this->router->assemble('blog');
     }
 
