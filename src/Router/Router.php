@@ -10,6 +10,13 @@ class Router implements RouterInterface
 
     public function addRoute($name, RouteInterface $route)
     {
+        if (!is_string($name) || '' == $name) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid route name \'%s\'',
+                var_export($name, true)
+            ));
+        }
+
         $this->routes[$name] = $route;
     }
 
@@ -24,6 +31,12 @@ class Router implements RouterInterface
 
     public function assemble($name, array $params = [])
     {
+        if (!is_string($name) || '' == $name) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid route name \'%s\'',
+                var_export($name, true)
+            ));
+        }
         if (!isset($this->routes[$name])) {
             throw new \Exception(sprintf(
                 'Unknown route with name \'%s\'',
