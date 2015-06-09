@@ -7,7 +7,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 {
     private $response;
 
-    public function setup()
+    public function setUp()
     {
         $this->response = new Response(200, 'Hello');
     }

@@ -7,7 +7,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 {
     private $request;
 
-    public function setup()
+    public function setUp()
     {
         $this->request = new Request('/');
     }

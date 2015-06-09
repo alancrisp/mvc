@@ -8,7 +8,7 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
 {
     private $route;
 
-    public function setup()
+    public function setUp()
     {
         $this->route = new Literal('/contact', 'contact');
     }

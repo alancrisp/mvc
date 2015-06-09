@@ -14,7 +14,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     private $router;
     private $route;
 
-    public function setup()
+    public function setUp()
     {
         $this->router = $this->getMock('SimpleMvc\Router\RouterInterface');
         $this->route = $this->getMock('SimpleMvc\Router\Route\RouteInterface');

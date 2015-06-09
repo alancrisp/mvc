@@ -9,7 +9,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 {
     private $router;
 
-    public function setup()
+    public function setUp()
     {
         $this->router = new Router();
     }
