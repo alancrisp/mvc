@@ -32,6 +32,13 @@ class Application
         }
 
         $controller = $this->controllers[$controllerName];
+        if (!is_callable($controller)) {
+            throw new \Exception(sprintf(
+                'Controller \'%s\' is not callable',
+                $controllerName
+            ));
+        }
+
         $response = call_user_func($controller, $request);
         if (!$response instanceof ResponseInterface) {
             throw new \Exception(sprintf(

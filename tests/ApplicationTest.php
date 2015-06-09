@@ -20,6 +20,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->application = new Application($this->router, [
             'hello' => function () { return new Response(200, 'Hello!'); },
             'no-response' => function () {},
+            'not-callable' => 'not-callable',
         ]);
     }
 
@@ -37,6 +38,15 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->givenRouteProvidesControllerName('invalidController');
         $request = new Request('/');
         $this->setExpectedException('Exception', 'Route matched to unknown controller \'invalidController\'');
+        $this->application->dispatch($request);
+    }
+
+    public function testThrowsExceptionWhenControllerIsNotCallable()
+    {
+        $this->givenRouterMatchesRoute();
+        $this->givenRouteProvidesControllerName('not-callable');
+        $this->setExpectedException('Exception', 'Controller \'not-callable\' is not callable');
+        $request = new Request('/');
         $this->application->dispatch($request);
     }
 
