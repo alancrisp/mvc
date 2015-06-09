@@ -22,16 +22,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->application = new Application($this->router, $this->controllers);
     }
 
-    private function createControllerProvider()
-    {
-        $controllers = new ControllerProvider();
-        $controllers->addController('hello', function () {
-            return new Response(200, 'Hello!');
-        });
-        $controllers->addController('no-response', function () {});
-        return $controllers;
-    }
-
     public function testThrowsExceptionOnNoRouteMatch()
     {
         $this->router->method('match')->willReturn(false);
@@ -75,5 +65,15 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     private function givenRouteProvidesControllerName($name)
     {
         $this->route->method('getControllerName')->willReturn($name);
+    }
+
+    private function createControllerProvider()
+    {
+        $controllers = new ControllerProvider();
+        $controllers->addController('hello', function () {
+            return new Response(200, 'Hello!');
+        });
+        $controllers->addController('no-response', function () {});
+        return $controllers;
     }
 }
