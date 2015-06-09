@@ -16,7 +16,7 @@ class Application
         $this->controllers = $controllers;
     }
 
-    public function dispatch(RequestInterface $request)
+    public function run(RequestInterface $request)
     {
         $matchedRoute = $this->router->match($request);
         if (!$matchedRoute) {

@@ -29,7 +29,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->router->method('match')->willReturn(false);
         $request = new Request('/blog');
         $this->setExpectedException('Exception', 'Unable to match route');
-        $this->application->dispatch($request);
+        $this->application->run($request);
     }
 
     public function testThrowsExceptionOnUnknownController()
@@ -38,7 +38,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->givenRouteProvidesControllerName('invalidController');
         $request = new Request('/');
         $this->setExpectedException('Exception', 'Route matched to unknown controller \'invalidController\'');
-        $this->application->dispatch($request);
+        $this->application->run($request);
     }
 
     public function testThrowsExceptionWhenControllerIsNotCallable()
@@ -47,16 +47,15 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->givenRouteProvidesControllerName('not-callable');
         $this->setExpectedException('Exception', 'Controller \'not-callable\' is not callable');
         $request = new Request('/');
-        $this->application->dispatch($request);
+        $this->application->run($request);
     }
-
     public function testThrowsExceptionWhenControllerDoesNotProvideResponse()
     {
         $this->givenRouterMatchesRoute();
         $this->givenRouteProvidesControllerName('no-response');
         $this->setExpectedException('Exception', 'Controller \'no-response\' did not provide a response');
         $request = new Request('/');
-        $this->application->dispatch($request);
+        $this->application->run($request);
     }
 
     public function testReturnsResponse()
@@ -64,7 +63,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->givenRouterMatchesRoute();
         $this->givenRouteProvidesControllerName('hello');
         $request = new Request('/hello');
-        $response = $this->application->dispatch($request);
+        $response = $this->application->run($request);
         $this->assertInstanceOf('SimpleMvc\Http\ResponseInterface', $response);
     }
 
