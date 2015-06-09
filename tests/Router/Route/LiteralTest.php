@@ -18,6 +18,24 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('SimpleMvc\Router\Route\RouteInterface', $this->route);
     }
 
+    /**
+     * @dataProvider provideInvalidNonEmptyString
+     */
+    public function testThrowsExceptionOnInvalidRoute($route)
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Invalid route');
+        $route = new Literal($route, 'controller');
+    }
+
+    /**
+     * @dataProvider provideInvalidNonEmptyString
+     */
+    public function testThrowsExceptionOnInvalidControllerName($controllerName)
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Invalid controller name');
+        $route = new Literal('/', $controllerName);
+    }
+
     public function testMatchesRequest()
     {
         $request = new Request('/contact');
@@ -32,5 +50,13 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
     public function testProvidesControllerName()
     {
         $this->assertEquals('contact', $this->route->getControllerName());
+    }
+
+    public function provideInvalidNonEmptyString()
+    {
+        return [
+            [''],
+            [new \stdClass()],
+        ];
     }
 }
